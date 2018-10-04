@@ -1,0 +1,5 @@
+Paweł, Nowak,2000-11-02,123345567
+Katarzyna, Nowakowska,1992-10-04
+Anna, Pieczywek,1990-04-05,234456678
+Norbert,Nos,1990-10-02
+Kamil,Kurek,2005-10-02,345567789
