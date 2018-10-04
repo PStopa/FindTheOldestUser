@@ -33,12 +33,16 @@ public class User {
         return phoneNumber;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
     public int returnAgeOfUser() {
-        if(bornDate != null) {
-            return Period.between(bornDate, LocalDate.now()).getYears();
-        } else {
-            return 0;
-        }
+        return Period.between(bornDate, LocalDate.now()).getYears();
     }
 }
 

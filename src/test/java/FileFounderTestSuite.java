@@ -1,35 +1,35 @@
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
-import org.mockito.Mockito;
-
 import java.time.LocalDate;
-import java.util.ArrayList;
-
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
 
 public class FileFounderTestSuite {
 
-    UserRepository userRepo = UserRepository.getInstance();
-    FileFounder fileFounder = new FileFounder(userRepo);
+    private UserRepository userRepo = UserRepository.getInstance();
+    private FileFounder fileFounder = new FileFounder(userRepo);
 
     @Test
     public void readFileTest() {
-
+        //Given
+        fileFounder.openFile("plik.txt");
+        //When
+        fileFounder.readFile();
+        //Then
+        assertEquals(5, userRepo.getUsers().size());
     }
 
     @Test
     public void trimStringTest() {
         //Given
-        String stringToTrim = "    Karol,   No wak, 2000-10-  1  0, 48 123 345 567";
+        String stringToTrim = " Karol,   No wak, 2000-10-  1  0, 48 123 345 567";
         String[] expecteTrimStrings = {"Karol", "Nowak", "2000-10-10", "48123345567"};
         //When
         String[] result = fileFounder.trimString(stringToTrim);
         //Then
-        Assert.assertEquals(expecteTrimStrings[0],result[0]);
-        Assert.assertEquals(expecteTrimStrings[1],result[1]);
-        Assert.assertEquals(expecteTrimStrings[2],result[2]);
-        Assert.assertEquals(expecteTrimStrings[3],result[3]);
+        assertEquals(expecteTrimStrings[0],result[0]);
+        assertEquals(expecteTrimStrings[1],result[1]);
+        assertEquals(expecteTrimStrings[2],result[2]);
+        assertEquals(expecteTrimStrings[3],result[3]);
     }
 
     @Test
@@ -40,17 +40,18 @@ public class FileFounderTestSuite {
         LocalDate resultData = fileFounder.parseStringToData(stringData);
         LocalDate expectedData = LocalDate.of(1990, 10, 10);
         //Then
+        assertEquals(resultData, expectedData);
     }
 
     @Test
     public void openFileTest() {
         //Given
-        String mockString = "plik.txt";
+        String filePath = "plik.txt";
 
         // When
-        boolean result = fileFounder.openFile(mockString);
+        boolean result = fileFounder.openFile(filePath);
 
         //Then
-        Assert.assertTrue(result);
+        assertTrue(result);
     }
 }

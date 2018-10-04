@@ -8,7 +8,7 @@ public class UserRepository {
     private ArrayList<User> users;
 
     private UserRepository() {
-        users = new ArrayList<User>();
+        users = new ArrayList<>();
     }
 
     public static UserRepository getInstance() {
@@ -19,9 +19,9 @@ public class UserRepository {
     }
 
     public void addUser(String[] userData, LocalDate date) {
-        if(userData.length == 4) {
+        if (userData.length == 4) {
             users.add(new User(userData[0], userData[1], date, userData[3]));
-        } else {
+        } else if (userData.length == 3) {
             users.add(new User(userData[0], userData[1], date));
         }
     }
@@ -31,23 +31,21 @@ public class UserRepository {
     }
 
     public User findOldestUser() {
-
         List<User> usersWithPhoneNumber = users.stream()
                 .filter(u -> u.getPhoneNumber() != null)
                 .collect(Collectors.toList());
 
-        if(usersWithPhoneNumber.size()==0) {
+        if (usersWithPhoneNumber.size() == 0) {
             return null;
         } else {
             User oldestUser = usersWithPhoneNumber.get(0);
 
-            for(User user: usersWithPhoneNumber) {
-                if(user.getBornDate().isBefore(oldestUser.getBornDate())){
+            for (User user : usersWithPhoneNumber) {
+                if (user.getBornDate().isBefore(oldestUser.getBornDate())) {
                     oldestUser = user;
                 }
             }
             return oldestUser;
         }
-
     }
 }
